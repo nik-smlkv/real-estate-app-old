@@ -3,10 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoadingScreen from './components/loadingScreen/LoadingScreen';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Search from "./screens/search/Search";
+import Search from "./screens/Search/Search";
 import Favorites from "./screens/Favorites/Favorites";
-import Chat from "./screens/chat/Chat";
-import Profile from "./screens/profile/Profile";
+import Chat from "./screens/Chat/Chat";
+import Profile from "./screens/Profile/Profile";
 import Home from "./screens/home/Home";
 import { Image, Text } from 'react-native';
 import Header from './components/header/Header';
@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
 	const [isLoading, setIsLoading] = useState(true);
-
+	
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setIsLoading(false);

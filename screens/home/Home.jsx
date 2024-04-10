@@ -10,6 +10,35 @@ import {
 import Header from "../../components/header/Header";
 
 const Home = () => {
+  const services = [
+    {
+      title: "Все сервисы",
+      image: require("../../assets/cards-icon/category.png"),
+    },
+    { title: "Кварталы", image: require("../../assets/cards-icon/estate.png") },
+    { title: "Кредит", image: require("../../assets/cards-icon/card.png") },
+    {
+      title: "Рассрочка",
+      image: require("../../assets/cards-icon/wallet-minus.png"),
+    },
+    {
+      title: "Новости \n и акции",
+      image: require("../../assets/cards-icon/discount-shape.png"),
+    },
+    {
+      title: "Час \n с Агентом",
+      image: require("../../assets/cards-icon/user-tag.png"),
+    },
+    {
+      title: "Кредитный калькулятор",
+      image: require("../../assets/cards-icon/calculator.png"),
+    },
+  ];
+
+  const handleServicePress = (serviceTitle) => {
+    // Обработка навигации на соответствующий компонент по нажатию карточки
+    console.log("Переход на компонент:", serviceTitle);
+  };
   return (
     <View style={{ flex: 1 }}>
       <Header />
@@ -22,8 +51,28 @@ const Home = () => {
             </Text>
           </View>
           <TouchableOpacity style={styles.button}>
-            <Image source={require("../../assets/arrow-right.png")} style={styles.image} />
+            <Image
+              source={require("../../assets/arrow-right.png")}
+              style={styles.image}
+            />
           </TouchableOpacity>
+        </View>
+        <View style={styles.cardsContainer}>
+          <ScrollView horizontal={true}>
+            {services.map((service, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.serviceCard,
+                  index === 0 && styles.firstServiceCard,
+                ]}
+                onPress={() => handleServicePress(service.title)}
+              >
+                <Image source={service.image} style={styles.serviceImage} />
+                <Text style={[styles.serviceTitle, index === 0 && styles.firstServiceTitle]}>{service.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
       </ScrollView>
     </View>
@@ -51,7 +100,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17,
-    color: 'white',
+    color: "white",
     fontWeight: "",
     fontFamily: "SF Pro Display",
   },
@@ -73,6 +122,39 @@ const styles = StyleSheet.create({
   image: {
     width: 12,
     height: 12,
+  },
+  cardsContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  serviceCard: {
+    width: 80,
+    paddingTop: 5,
+    paddingBottom: 10,
+    paddingLeft: 6,
+    paddingRight: 6,
+    margin: 5,
+    gap: 20,
+    backgroundColor: "#2D2F36",
+    borderRadius: 10,
+  },
+  firstServiceCard: {
+	backgroundColor: 'white', // Цвет фона для первой карточки
+ },
+ firstServiceTitle: {
+	color: '#25262D'
+ },
+  serviceImage: {
+    width: 48,
+    height: 48,
+  },
+  serviceTitle: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 11,
+    textAlign: "left",
+    color: "white",
   },
 });
 export default Home;
