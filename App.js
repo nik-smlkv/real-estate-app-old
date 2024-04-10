@@ -3,12 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoadingScreen from './components/loadingScreen/LoadingScreen';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Search from "./screens/Search/Search";
+import Search from "./screens/search/Search";
 import Favorites from "./screens/Favorites/Favorites";
-import Chat from "./screens/Chat/Chat";
-import Profile from "./screens/Profile/Profile";
+import Chat from "./screens/chat/Chat";
+import Profile from "./screens/profile/Profile";
 import Home from "./screens/home/Home";
 import { Image, Text } from 'react-native';
+import Header from './components/header/Header';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -29,8 +30,10 @@ export default function App() {
 	}
 
 	return (
-		<NavigationContainer >
+		<NavigationContainer  >
+
 			<Tab.Navigator
+			
 				screenOptions={({ route }) => ({
 					tabBarIcon: ({ focused, color, size }) => {
 						const icon = routeIcons[route.name];
