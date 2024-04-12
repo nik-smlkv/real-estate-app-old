@@ -9,17 +9,17 @@ import {
   Modal,
   TextInput,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import Header from "../../components/header/Header";
 import FormComponent from "../../components/HomeComponents/FormComponent/FormComponent";
 import RecomendedComponent from "../../components/HomeComponents/RecommendedComponent/RecomendedComponent";
 import NewsComponent from "../../components/HomeComponents/NewsComponent/NewsComponent";
+import ServicesComponent from "../../components/services/ServicesComponent";
+import Navigator from "../../components/Navigator/Navigator";
 
 const Home = () => {
 
-  const handleServicePress = (serviceTitle) => {
-    // Обработка навигации на соответствующий компонент по нажатию карточки
-    console.log("Переход на компонент:", serviceTitle);
-  };
   const services = [
     {
       title: "Все сервисы",
@@ -63,28 +63,9 @@ const Home = () => {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.cardsContainer}>
-          <ScrollView horizontal={true}>
-            {services.map((service, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.serviceCard,
-                  index === 0 && styles.firstServiceCard,
-                ]}
-                onPress={() => handleServicePress(service.title)}
-              >
-                <Image source={service.image} style={styles.serviceImage} />
-                <Text
-                  style={[
-                    styles.serviceTitle,
-                    index === 0 && styles.firstServiceTitle,
-                  ]}
-                >
-                  {service.title}
-                </Text>
-              </TouchableOpacity>
-            ))}
+        <View style={{ flex: 1 }}>
+          <ScrollView style={styles.servicescontainer}>
+            <ServicesComponent services={services} />
           </ScrollView>
         </View>
         <FormComponent />
