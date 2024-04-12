@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -17,34 +17,66 @@ import RecomendedComponent from "../../components/HomeComponents/RecommendedComp
 import NewsComponent from "../../components/HomeComponents/NewsComponent/NewsComponent";
 import ServicesComponent from "../../components/services/ServicesComponent";
 import Navigator from "../../components/Navigator/Navigator";
+import Footer from "../../components/Footer/Footer";
+import Installment from "../Installment/Installment";
+import Services from "../Services/Services";
+import Quarters from "../Quarters/Quarters";
+import Credits from "../Credits/Credits";
+import News from "../News/News";
+import Chat from "../Chat/Chat";
+import Calculator from "../Calculator/Calculator";
+import PopupModal from "../../components/PopupModal/PopupModal";
 
 const Home = () => {
-
   const services = [
     {
       title: "Все сервисы",
       image: require("../../assets/cards-icon/category.png"),
+      component: Services,
     },
-    { title: "Кварталы", image: require("../../assets/cards-icon/estate.png") },
-    { title: "Кредит", image: require("../../assets/cards-icon/card.png") },
+    {
+      title: "Кварталы",
+      image: require("../../assets/cards-icon/estate.png"),
+      component: Quarters,
+    },
+    {
+      title: "Кредит",
+      image: require("../../assets/cards-icon/card.png"),
+      component: Credits,
+    },
     {
       title: "Рассрочка",
       image: require("../../assets/cards-icon/wallet-minus.png"),
+      component: Installment,
     },
     {
       title: "Новости \n и акции",
       image: require("../../assets/cards-icon/discount-shape.png"),
+      component: News,
     },
     {
-      title: "Час \n с Агентом",
+      title: "Чат \n с Агентом",
       image: require("../../assets/cards-icon/user-tag.png"),
+      component: Chat,
     },
     {
       title: "Кредитный калькулятор",
       image: require("../../assets/cards-icon/calculator.png"),
+      component: Calculator,
     },
   ];
-
+  const [showModal, setShowModal] = useState(false);
+  const timer2 = setTimeout(() => {
+    setShowModal(true);
+  }, 6000);
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer2);
+    };
+  }, []);
+  const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <View style={{ flex: 1 }}>
       <Header />
@@ -72,6 +104,24 @@ const Home = () => {
         <RecomendedComponent />
         <NewsComponent />
       </ScrollView>
+      <Modal
+        visible={showModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={closeModal}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <PopupModal onClose={closeModal} />
+        </View>
+      </Modal>
+      <Footer activePage="Главная" />
     </View>
   );
 };
@@ -119,41 +169,6 @@ const styles = StyleSheet.create({
   image: {
     width: 12,
     height: 12,
-  },
-  cardsContainer: {
-    marginTop: 40,
-    display: "flex",
-    flexDirection: "row",
-  },
-  serviceCard: {
-    width: 80,
-    paddingTop: 5,
-    paddingBottom: 10,
-    paddingLeft: 6,
-    paddingRight: 6,
-    margin: 5,
-    gap: 20,
-    backgroundColor: "#2D2F36",
-    borderRadius: 10,
-  },
-
-  firstServiceCard: {
-    backgroundColor: "white", // Цвет фона для первой карточки
-  },
-  firstServiceTitle: {
-    color: "#25262D",
-  },
-  serviceImage: {
-    width: 48,
-    height: 48,
-  },
-  serviceTitle: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 11,
-    textAlign: "left",
-    color: "white",
   },
 });
 export default Home;
